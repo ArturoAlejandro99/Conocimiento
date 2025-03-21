@@ -167,3 +167,98 @@ Eliminación de replicaSet
 kubectl delete rs frontend
 ```
 ---
+
+## Depoloyments
+
+Obtención de deploys
+```
+kubectl get deployments
+```
+
+o para obtener información más detallada 
+```
+kubectl get deploy -o wide
+```
+---
+Actualizar la cantidad de pods
+```
+kubectl scale deploy nginx-deployment --replicas=4
+```
+---
+Descripción del deployment
+```
+kubectl describe deploy nginx-deployment
+```
+---
+Para obtener visibilidad del estado de actualización del despliegue 
+```
+kubectl rollout status deploy nginx-deployment
+```
+---
+Comando para obtener el histórico de revisiones
+```
+kubectl rollout history deploy nginx-deployment
+```
+para revisar alguna en especifico se utiliza
+```
+---revision=<numero de revisión>
+```
+---
+Actualizar imagen del contenedor y registrar el cambio en el historico
+```
+kubectl set image deploy nginx-deployment nginx=nginx:1.21.5 --record
+```
+---
+Obtener información del historico
+```
+kubectl rollout history deploy nginx-deployment --revision=2
+```
+---
+Realizar rollback a una revisión especifica
+```
+kubectl rollout undo deploy nginx-deployment --to-revision=1
+```
+---
+Eliminar todo un deploy
+```
+kubectl delete deploy nginx-deployment
+```
+---
+
+## DaemonSets
+
+Obtención de los daemonsets
+```
+kubectl get daemonsets
+```
+---
+Descripción
+```
+kubectl describe ds fluentd-agent
+```
+---
+Obtención del estado actual
+```
+kubectl rollout status ds fluentd-agent
+```
+---
+Revisión de historico
+```
+kubectl rollout history ds fluentd-agent --revision=1
+```
+---
+Actualización de versión en imagen
+```
+kubectl set image ds fluentd-agent fluentd=quay.io/fluentd_elasticsearch/fluentd:v4.6.2 --record
+```
+---
+Rollback
+```
+kubectl rollout undo ds fluentd-agent --to-revision=1
+```
+---
+Eliminación
+```
+kubectl delete ds fluentd-agent
+```
+---
